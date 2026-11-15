@@ -1,0 +1,62 @@
+{
+  "n_images": 170,
+  "image_size_after_resize": 256,
+  "n_by_source": {
+    "Fudan": 74,
+    "Penn": 96
+  },
+  "persons_per_image": {
+    "min": 1,
+    "max": 8,
+    "mean": 2.488235294117647,
+    "total": 423
+  },
+  "foreground_fraction": {
+    "min": 0.0483551025390625,
+    "median": 0.15602874755859375,
+    "max": 0.424163818359375,
+    "mean": 0.1728445614085478
+  },
+  "background_pixel_share": 0.8271554385914522,
+  "images_with_empty_mask": 0,
+  "exact_duplicate_images": 0,
+  "mask_values_after_merge": [
+    0,
+    1
+  ],
+  "original_size_range_hw": {
+    "min": [
+      311,
+      253
+    ],
+    "max": [
+      581,
+      1017
+    ]
+  },
+  "split_sizes": {
+    "train": 118,
+    "val": 26,
+    "test": 26
+  },
+  "split_fg_mean": {
+    "train": 0.17270660400390625,
+    "val": 0.17316495455228365,
+    "test": 0.17315028263972357
+  },
+  "split_source_counts": {
+    "train": {
+      "Fudan": 52,
+      "Penn": 66
+    },
+    "val": {
+      "Fudan": 11,
+      "Penn": 15
+    },
+    "test": {
+      "Fudan": 11,
+      "Penn": 15
+    }
+  },
+  "missing_values": "not applicable (image/mask pairs; unreadable files raise an error)"
+}

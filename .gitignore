@@ -1,0 +1,7 @@
+data/PennFudanPed*
+data/cache*
+data/synth
+results_smoke
+results/runs
+__pycache__
+.venv

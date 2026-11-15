@@ -1,0 +1,18 @@
+# Tiny configuration used ONLY to test that the pipeline runs end-to-end on synthetic data.
+data_root: data/synth/PennFudanPed
+cache_dir: data/cache_smoke
+out_dir: results_smoke
+img_size: 128
+update_readme: false
+split: {train: 0.70, val: 0.15, test: 0.15, seed: 42}
+model: {arch: resnet_unet, encoder: resnet18, pretrained: false, base_channels: 16}
+loss: {name: bce_dice, bce_weight: 1.0, dice_weight: 1.0}
+train: {epochs: 6, batch_size: 8, lr: 0.001, encoder_lr_mult: 1.0, weight_decay: 0.0001, warmup_epochs: 1, patience: 10, amp: false, num_workers: 0}
+seeds: [0, 1]
+experiments:
+  baseline:      {flip: false, zoom: 0.0}
+  proposed:      {flip: true,  zoom: 0.2}
+  flip_only:     {flip: true,  zoom: 0.0}
+  zoom_only:     {flip: false, zoom: 0.2}
+  proposed_plus: {flip: true,  zoom: 0.2, rotate: 10, shift: 0.1, color: 0.2}
+primary_comparison: [baseline, proposed]

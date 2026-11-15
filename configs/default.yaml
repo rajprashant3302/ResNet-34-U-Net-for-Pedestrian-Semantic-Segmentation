@@ -1,0 +1,46 @@
+# ---------------- Main configuration (all settings are shared by every experiment) ----------------
+data_root: data/PennFudanPed        # produced by `python -m src.download_data`
+cache_dir: data/cache
+out_dir: results
+img_size: 256                       # project rule: resize every image to 256 x 256
+update_readme: true                 # inject the results table/figures into README.md after analysis
+
+split:                              # fixed ONCE, reused by every model and seed (saved to results/splits.json)
+  train: 0.70
+  val: 0.15
+  test: 0.15
+  seed: 42
+
+model:
+  arch: resnet_unet                 # resnet_unet | vanilla_unet
+  encoder: resnet34                 # resnet18 | resnet34 | resnet50   (resnet_unet only)
+  pretrained: true                  # ImageNet weights (downloaded by torchvision on first use)
+  base_channels: 64                 # vanilla_unet only
+
+loss:                               # SAME loss for every experiment (compound BCE + soft-Dice)
+  name: bce_dice
+  bce_weight: 1.0
+  dice_weight: 1.0
+
+train:
+  epochs: 100
+  batch_size: 8
+  lr: 0.0003
+  encoder_lr_mult: 0.5              # pretrained encoder learns slower than the freshly initialised decoder
+  weight_decay: 0.0001
+  warmup_epochs: 3
+  patience: 25                      # early stopping on validation IoU
+  amp: true                         # mixed precision (only used on CUDA)
+  num_workers: 0                    # keep 0: augmentation RNG is seeded in the main process (reproducible)
+
+seeds: [0, 1, 2]                    # init / shuffling / augmentation seeds (the split stays fixed)
+
+# ---------------- Experiments: they differ ONLY in the augmentation of the training images ----------------
+experiments:
+  baseline:      {flip: false, zoom: 0.0}                                      # required: no augmentation
+  proposed:      {flip: true,  zoom: 0.2}                                      # required: horizontal flip + small zoom (scale 0.8-1.2)
+  flip_only:     {flip: true,  zoom: 0.0}                                      # ablation
+  zoom_only:     {flip: false, zoom: 0.2}                                      # ablation
+  proposed_plus: {flip: true,  zoom: 0.2, rotate: 10, shift: 0.1, color: 0.2}  # extension beyond the brief (reported separately)
+
+primary_comparison: [baseline, proposed]

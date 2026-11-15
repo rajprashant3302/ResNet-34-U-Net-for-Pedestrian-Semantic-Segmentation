@@ -1,0 +1,3 @@
+run_id,split_seed,model_seed,augmentation,lr,batch,best_epoch,val_iou,test_iou,runtime_s
+baseline_seed0,42,0,"{'flip': False, 'zoom': 0.0}",0.0003,8,15,0.7877,0.8110,823
+proposed_seed0,42,0,"{'flip': True, 'zoom': 0.2}",0.0003,8,13,0.7788,0.8089,760
