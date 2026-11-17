@@ -111,6 +111,11 @@ python -m src.run_experiments --experiments baseline proposed --seeds 0 \
 
 # a single run:
 python -m src.train --exp proposed --seed 0
+
+# single image inference (mask overlay visualization):
+python -m src.predict_single --image data/test_images/image.png
+#   options: --checkpoint results/runs/baseline_seed0/best.pt --thr 0.5 --output <path> --no-tta
+#   outputs: results/test_predictions/<name>_overlay.png (3-panel) & <name>_overlay_only.png (direct overlay)
 ```
 
 Finished runs are skipped on re-run (use `--force` to retrain). Run time (my estimate, not measured): a few minutes per run on a T4 GPU;
@@ -214,7 +219,7 @@ per-image scatter, IoU by person size, and a gallery of test masks coloured gree
 ## 9. Project layout
 ```
 configs/   default.yaml (real study)  smoke.yaml (synthetic self-test)
-src/       data.py augment.py model.py losses.py metrics.py train.py evaluate.py analyze.py eda.py run_experiments.py ...
+src/       data.py augment.py model.py losses.py metrics.py train.py evaluate.py analyze.py eda.py predict_single.py run_experiments.py ...
 scripts/   run_all.sh  run_smoke.sh
 tests/     unit tests (split leakage, metrics, augmentation, model shapes, loss)
 docs/      dataset_card.md  architecture.png
